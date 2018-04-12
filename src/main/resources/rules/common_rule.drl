@@ -1,0 +1,5 @@
+package mypackage
+
+declare MyType
+    myField : String @key
+end

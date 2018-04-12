@@ -1,0 +1,18 @@
+package mypackage
+
+rule "My Rule"
+    when
+        not MyType();
+    then
+        MyType myType = new MyType("request");
+        insert(myType);
+end
+
+rule "Check Rule"
+    when
+        $type : MyType( myField=="request");
+    then
+        $type.setMyField("response");
+end
+
+

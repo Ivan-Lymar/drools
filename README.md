@@ -1,2 +1,2 @@
-# drools
-Drools poc
+# Drools
+Drools rules with spring boot.

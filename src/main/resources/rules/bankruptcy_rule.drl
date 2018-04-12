@@ -1,0 +1,55 @@
+package rules
+
+import demo.model.Loan
+import demo.model.Bank
+import demo.model.Person
+import demo.model.IsCoder
+
+rule "No loans"
+    when
+        not Loan();
+        $bank : Bank( );
+    then
+        System.out.println("No loans");
+end
+
+rule "Add to processed"
+    when
+        $bank : Bank( hasWork == true );
+    then
+        $bank.addLoanToProcessed($bank.getRequired().get(0));
+        $bank.getRequired().remove(0);
+        $bank.setHasWork( false );
+    end
+
+rule "Allowed amount"
+	when
+		$loan: Loan(amount<1000,$amount:amount)
+	then
+
+		modify( $loan ) { setAllowed(true) };
+	end
+
+rule "Add to bank"
+    when
+        $bank : Bank( );
+        $loan : Loan( allowed == true , processed == false);
+    then
+        modify( $bank ) { addLoanToQueue($loan), setHasWork( true ) };
+        modify( $loan ) { setProcessed(true); };
+    end
+
+rule "Check person age"
+    when
+        $person : Person( age > 16 );
+    then
+        insert(new IsCoder( $person ) );
+    end
+
+rule "Define coders"
+    when
+        $person : Person();
+        IsCoder ( person == $person )
+    then
+        $person.setCanCode(true);
+    end
