@@ -1,9 +1,9 @@
 package demo.api;
 
-import demo.model.Loan;
 import demo.model.Person;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.*;
 
 public class PersonTest extends DroolsBaseTest {
 
@@ -16,7 +16,7 @@ public class PersonTest extends DroolsBaseTest {
         //WHEN
         kieSession.fireAllRules();
         //THEN
-        Assertions.assertTrue(person.getCanCode());
+        assertThat(person.getCanCode()).isTrue();
     }
 
 }

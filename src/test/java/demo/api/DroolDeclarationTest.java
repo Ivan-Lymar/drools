@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.kie.api.definition.type.FactType;
 import org.kie.api.runtime.KieSession;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -45,7 +46,7 @@ class DroolDeclarationTest extends DroolsBaseTest {
             }
         }
 
-        assertTrue(found);
+        assertThat(found).isTrue();
     }
 
 }
